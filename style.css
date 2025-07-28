@@ -1,0 +1,435 @@
+/* 
+   ARQUIVO CSS PRINCIPAL DO PORTFÓLIO
+   Contém toda a estilização, animações e efeitos hover
+   Tema: Pixel Art / Jogos 2D
+*/
+
+/* ========== RESET E CONFIGURAÇÕES GLOBAIS ========== */
+
+/* Reset básico para remover margens e paddings padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configurações do corpo da página */
+body {
+    font-family: 'Pixelify Sans', monospace; /* Fonte pixel do Google Fonts */
+    background-color: #000000; /* Fundo preto */
+    color: #F0F8FF; /* Cor do texto (aliceblue) */
+    overflow-x: hidden; /* Evita scroll horizontal */
+    line-height: 1.6;
+}
+
+/* Container principal da página */
+.main-container {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ========== ANIMAÇÕES DE CARREGAMENTO ========== */
+
+/* Animação de fade-in para elementos que aparecem ao carregar */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação de slide-in da esquerda */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animação de slide-in da direita */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animação de pulsação para elementos interativos */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ========== SEÇÃO HERO (CABEÇALHO) ========== */
+
+/* Container da seção hero */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #23158a 0%, #4a2c9a 100%); /* Gradiente roxo */
+    height: 400px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pseudo-elemento para efeito de pixels no fundo */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+/* Espaçador lateral esquerdo */
+.spacer-left {
+    width: 180px;
+    flex-shrink: 0;
+}
+
+/* Conteúdo central do hero */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    /* Aplicando animação de fade-in */
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Título principal */
+.hero-title {
+    font-size: 80px;
+    color: #F0F8FF;
+    margin-bottom: 0;
+    font-weight: 700;
+    text-shadow: 3px 3px 0px #000000, -1px -1px 0px #000000; /* Efeito de contorno pixel */
+    /* Animação de slide da esquerda com delay */
+    animation: slideInLeft 1.2s ease-out 0.3s both;
+}
+
+/* Subtítulo */
+.hero-subtitle {
+    font-size: 50px;
+    color: #F0F8FF;
+    margin-top: 0;
+    font-weight: 500;
+    text-shadow: 2px 2px 0px #000000, -1px -1px 0px #000000;
+    /* Animação de slide da direita com delay */
+    animation: slideInRight 1.2s ease-out 0.6s both;
+}
+
+/* Descrição adicional */
+.hero-description {
+    font-size: 20px;
+    color: #B0C4DE; /* Cor mais suave */
+    margin-top: 15px;
+    font-weight: 400;
+    /* Animação de fade-in com delay maior */
+    animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+/* Imagem do perfil */
+.profile-image {
+    width: 300px;
+    height: 400px;
+    margin-right: 0;
+    border-radius: 10px;
+    border: 4px solid #F0F8FF;
+    box-shadow: 0 0 20px rgba(240, 248, 255, 0.3);
+    /* Animação de slide da direita */
+    animation: slideInRight 1.5s ease-out 0.2s both;
+    transition: all 0.3s ease;
+}
+
+/* Efeito hover na imagem do perfil */
+.profile-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 30px rgba(240, 248, 255, 0.5);
+}
+
+/* ========== ESPAÇAMENTO ENTRE SEÇÕES ========== */
+
+.section-spacer {
+    height: 30px;
+}
+
+/* ========== SEÇÃO DE NAVEGAÇÃO ========== */
+
+/* Container da navegação */
+.nav-container {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+/* Espaçador lateral da navegação */
+.nav-spacer {
+    width: 10%;
+    flex-shrink: 0;
+}
+
+/* Container das seções de navegação */
+.navigation-sections {
+    display: flex;
+    background: linear-gradient(135deg, #5e14fd 0%, #7c3aed 100%); /* Gradiente roxo mais claro */
+    height: 250px;
+    justify-content: space-around;
+    align-items: center;
+    color: #F0F8FF;
+    border-top-left-radius: 80px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(94, 20, 253, 0.3);
+    /* Animação de entrada */
+    animation: fadeInUp 1.5s ease-out 1.2s both;
+}
+
+/* Pseudo-elemento para efeito de pixels no fundo da navegação */
+.navigation-sections::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%);
+    background-size: 15px 15px;
+    border-top-left-radius: 80px;
+    pointer-events: none;
+}
+
+/* Seções individuais de navegação */
+.nav-section {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    /* Animação de entrada escalonada */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Animações escalonadas para cada seção */
+.nav-section:nth-child(1) {
+    animation: fadeInUp 0.8s ease-out 1.5s both;
+}
+
+.nav-section:nth-child(2) {
+    animation: fadeInUp 0.8s ease-out 1.7s both;
+}
+
+.nav-section:nth-child(3) {
+    animation: fadeInUp 0.8s ease-out 1.9s both;
+}
+
+/* Efeito hover nas seções de navegação */
+.nav-section:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
+}
+
+/* Links de navegação */
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Títulos das seções de navegação */
+.nav-section h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 2px 2px 0px #000000;
+    transition: all 0.3s ease;
+}
+
+/* Descrições das seções */
+.nav-description {
+    font-size: 16px;
+    color: #B0C4DE;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+/* Mostrar descrição no hover */
+.nav-section:hover .nav-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efeito especial no hover dos títulos */
+.nav-section:hover h2 {
+    color: #FFD700; /* Cor dourada */
+    text-shadow: 2px 2px 0px #000000, 0 0 10px #FFD700;
+}
+
+/* ========== RODAPÉ ========== */
+
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #1a1a1a;
+    border-top: 2px solid #5e14fd;
+    margin-top: 50px;
+    /* Animação de entrada */
+    animation: fadeInUp 1s ease-out 2.2s both;
+}
+
+.footer p {
+    font-size: 14px;
+    color: #B0C4DE;
+    margin: 5px 0;
+}
+
+.footer-subtitle {
+    font-size: 12px !important;
+    color: #8A8A8A;
+}
+
+/* ========== RESPONSIVIDADE ========== */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 50px;
+    }
+    
+    .hero-subtitle {
+        font-size: 35px;
+    }
+    
+    .hero-description {
+        font-size: 16px;
+    }
+    
+    .profile-image {
+        width: 200px;
+        height: 300px;
+    }
+    
+    .nav-section h2 {
+        font-size: 28px;
+    }
+    
+    .navigation-sections {
+        flex-direction: column;
+        height: auto;
+        padding: 30px 20px;
+    }
+    
+    .nav-section {
+        margin: 10px 0;
+        width: 100%;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+    .hero-section {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .spacer-left {
+        width: 0;
+    }
+    
+    .hero-title {
+        font-size: 35px;
+    }
+    
+    .hero-subtitle {
+        font-size: 25px;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 200px;
+        margin-top: 20px;
+    }
+    
+    .nav-spacer {
+        width: 5%;
+    }
+    
+    .navigation-sections {
+        width: 95%;
+        border-radius: 20px;
+    }
+}
+
+/* ========== EFEITOS ESPECIAIS ========== */
+
+/* Efeito de scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Efeito de seleção personalizado */
+::selection {
+    background-color: #5e14fd;
+    color: #F0F8FF;
+}
+
+/* Cursor personalizado para elementos interativos */
+.nav-section, .profile-image {
+    cursor: pointer;
+}
+
+/* Efeito de brilho nos elementos hover */
+.nav-section:hover::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FFD700, #FF6B6B, #4ECDC4, #45B7D1, #FFD700);
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0.7;
+    filter: blur(8px);
+}
+
