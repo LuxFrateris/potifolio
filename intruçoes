@@ -1,0 +1,5 @@
+para atualizar o codigo pelo vs code e so usar os comandos:
+git add .
+
+git comit -m "descreva a mudança"
+git push 
