@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to bottom, #4B0082, #0000FF, #00FFFF);
+      font-family: sans-serif;
+    }
+
+    #backgroud-inputs {
+     background: linear-gradient(to bottom, #2e004f, #00006e, #036b6b);
+      box-shadow: 0 0 20px #00FFFF;
+      width: 600px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 70px;
+    }
+
+    h1 {
+      margin: 10px;
+    }
+
+    input {
+      width: 300px;
+      height: 35px;
+      border-radius: 50px;
+      padding: 5px 15px;
+      border: none;
+    }
+
+    footer {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="height: 10px;"></div>
+
+  <div style="height: 100px; display: flex; justify-content: center;">
+    <img style="width: 100px; height: 100px; border-radius: 50px;" src="perfil.png" alt="perfil">
+  </div>
+
+  <div style="height: 10px;"></div>
+
+  <div id="backgroud-inputs">
+    <div style="display: flex; justify-content: center; color: aliceblue;">
+      <h1 style="font-size: 60px;">FAÇA LOGIN</h1>
+    </div>
+
+    <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; color: aliceblue;">
+      <h1>Nome</h1>
+      <input type="text" name="Nome" id="Nome"/>
+
+      <h1>Senha</h1>
+      <input type="password" name="Senha" id="Senha"/>
+    </div>
+
+    <div style="height: 50px;"></div>
+  </div>
+
+  <footer>
+    2025 - Tela de Login - Danilo Alvarenga
+  </footer>
+
+</body>
+</html>
