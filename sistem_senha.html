@@ -77,6 +77,28 @@
 </div>
 
 <script>
+
+function falarSenha(senha) {
+  const utterance = new SpeechSynthesisUtterance();
+  utterance.lang = 'pt-BR'; // Define o idioma como português do Brasil
+  utterance.rate = 1; // Velocidade da fala (pode ser ajustada)
+  
+  if (senha.startsWith("P")) {
+    utterance.text = "Senha prioritária " + formatarNumeros(senha.slice(1));
+  } else {
+    utterance.text = "Senha comum " + formatarNumeros(senha.slice(1));
+  }
+
+  speechSynthesis.speak(utterance);
+}
+
+function formatarNumeros(numero) {
+  // Fala dígito por dígito: "zero, zero, um"
+  return numero.split('').join(', ');
+}
+
+
+
   let contadorComum = 0;
   let contadorPrioritaria = 0;
   const maxSenha = 1000;
@@ -111,6 +133,16 @@
       li.textContent = listaChamadas[i];
       listaChamadasEl.appendChild(li);
     }
+
+function chamarSenha(tipo) {
+  const senha = gerarSenha(tipo);
+  senhaAtualEl.textContent = senha;
+  listaChamadas.unshift(senha); 
+  atualizarLista();
+  falarSenha(senha); // 🔈 Fala a senha atual
+}
+
+
   }
 
   document.getElementById('btnPrioritaria').addEventListener('click', () => chamarSenha('P'));
