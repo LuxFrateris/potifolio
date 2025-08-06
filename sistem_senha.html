@@ -1,148 +1,196 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sistema de Senhas Simples</title>
-  <style>
-    body {
-      background-color: #222;
-      color: #eee;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    button {
-      background: #5f8b9c;
-      border: none;
-      color: white;
-      padding: 20px 40px;
-      margin: 10px;
-      font-size: 18px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #497080;
-    }
-    #senhaAtual {
-      margin: 40px 0 20px 0;
-      font-size: 100px;
-      font-weight: bold;
-      letter-spacing: 10px;
-      color: #5f8b9c;
-    }
-    #senhasChamadas {
-      max-width: 500px;
-      margin: 0 auto;
-      background: #333;
-      border-radius: 15px;
-      padding: 15px;
-      height: 200px;
-      overflow-y: auto;
-      text-align: left;
-    }
-    #senhasChamadas h2 {
-      margin-top: 0;
-      color: #5f8b9c;
-    }
-    #senhasChamadas ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-    #senhasChamadas li {
-      padding: 5px 0;
-      border-bottom: 1px solid #444;
-      font-size: 18px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema de Senhas Simples</title>
+<style>
+  body {
+    background-color: #222;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  button {
+    background: #5f8b9c;
+    border: none;
+    color: white;
+    padding: 20px 40px;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #497080;
+  }
+  #senhaAtual {
+    margin: 40px 0 20px 0;
+    font-size: 100px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    color: #5f8b9c;
+  }
+  #senhasChamadas {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #333;
+    border-radius: 15px;
+    padding: 15px;
+    height: 200px;
+    overflow-y: auto;
+    text-align: left;
+  }
+  #senhasChamadas h2 {
+    margin-top: 0;
+    color: #5f8b9c;
+  }
+  #senhasChamadas ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  #senhasChamadas li {
+    padding: 5px 0;
+    border-bottom: 1px solid #444;
+    font-size: 18px;
+  }
+
+  /* POP-UP */
+  #popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  #popupContent {
+    background: #fff;
+    color: #000;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px #000;
+  }
+  #closePopup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: red;
+  }
+</style>
 </head>
 <body>
 
-  <h1>Sistema de Senhas</h1>
+<h1>Sistema de Senhas</h1>
 
-  <div>
-    <button id="btnPrioritaria">Senha Prioritária</button>
-    <button id="btnNormal">Senha Normal</button>
+<div>
+  <button id="btnPrioritaria">Senha Prioritária</button>
+  <button id="btnNormal">Senha Normal</button>
+</div>
+
+<div id="senhaAtual">---</div>
+
+<div id="senhasChamadas">
+  <h2>Senhas Chamadas</h2>
+  <ul id="listaChamadas"></ul>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+  <div id="popupContent">
+    <button id="closePopup">X</button>
+    <h2>Instruções</h2>
+    <p>Aperte <strong>A</strong> para senha <strong>normal</strong> ou <strong>B</strong> para <strong>prioritária</strong>.</p>
   </div>
+</div>
 
-  <div id="senhaAtual">---</div>
+<script>
+  let contadorComum = 0;
+  let contadorPrioritaria = 0;
+  const maxSenha = 1000;
+  const listaChamadas = [];
 
-  <div id="senhasChamadas">
-    <h2>Senhas Chamadas</h2>
-    <ul id="listaChamadas"></ul>
-  </div>
+  const senhaAtualEl = document.getElementById('senhaAtual');
+  const listaChamadasEl = document.getElementById('listaChamadas');
 
-  <script>
-    let contadorComum = 0;
-    let contadorPrioritaria = 0;
-    const maxSenha = 1000;
-    const listaChamadas = [];
-
-    const senhaAtualEl = document.getElementById('senhaAtual');
-    const listaChamadasEl = document.getElementById('listaChamadas');
-
-    function gerarSenha(tipo) {
-      if (tipo === 'P') {
-        contadorPrioritaria++;
-        if (contadorPrioritaria > maxSenha) contadorPrioritaria = 1;
-        return 'P' + contadorPrioritaria.toString().padStart(3, '0');
-      } else {
-        contadorComum++;
-        if (contadorComum > maxSenha) contadorComum = 1;
-        return 'C' + contadorComum.toString().padStart(3, '0');
-      }
+  function gerarSenha(tipo) {
+    if (tipo === 'P') {
+      contadorPrioritaria++;
+      if (contadorPrioritaria > maxSenha) contadorPrioritaria = 1;
+      return 'P' + contadorPrioritaria.toString().padStart(3, '0');
+    } else {
+      contadorComum++;
+      if (contadorComum > maxSenha) contadorComum = 1;
+      return 'C' + contadorComum.toString().padStart(3, '0');
     }
+  }
 
-    function chamarSenha(tipo) {
-      const senha = gerarSenha(tipo);
-      senhaAtualEl.textContent = senha;
-      listaChamadas.unshift(senha); 
-      atualizarLista();
-      tocarBeep(); // 🔊 toca beep
+  function chamarSenha(tipo) {
+    const senha = gerarSenha(tipo);
+    senhaAtualEl.textContent = senha;
+    listaChamadas.unshift(senha); 
+    atualizarLista();
+    tocarBeep();
+  }
+
+  function atualizarLista() {
+    listaChamadasEl.innerHTML = '';
+    for(let i = 0; i < listaChamadas.length; i++) {
+      const li = document.createElement('li');
+      li.textContent = listaChamadas[i];
+      listaChamadasEl.appendChild(li);
     }
+  }
 
-    function atualizarLista() {
-      listaChamadasEl.innerHTML = '';
-      for(let i = 0; i < listaChamadas.length; i++) {
-        const li = document.createElement('li');
-        li.textContent = listaChamadas[i];
-        listaChamadasEl.appendChild(li);
-      }
+  document.getElementById('btnPrioritaria').addEventListener('click', () => chamarSenha('P'));
+  document.getElementById('btnNormal').addEventListener('click', () => chamarSenha('C'));
+
+  document.addEventListener('keydown', function(event) {
+    const tecla = event.key.toLowerCase();
+    if (tecla === 'a') {
+      chamarSenha('C');
+    } else if (tecla === 'b') {
+      chamarSenha('P');
     }
+  });
 
-    function tocarBeep() {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
+  function tocarBeep() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
 
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(600, ctx.currentTime);
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(600, ctx.currentTime);
 
-      oscillator.start();
-      gainNode.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.2);
-      oscillator.stop(ctx.currentTime + 0.2);
-    }
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
 
-    // Clique nos botões
-    document.getElementById('btnPrioritaria').addEventListener('click', () => chamarSenha('P'));
-    document.getElementById('btnNormal').addEventListener('click', () => chamarSenha('C'));
+    oscillator.start();
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.3);
+    oscillator.stop(ctx.currentTime + 0.3);
+  }
 
-    // Teclas A e B
-    document.addEventListener('keydown', function(event) {
-      const tecla = event.key.toLowerCase();
-      if (tecla === 'a') {
-        chamarSenha('C');
-      } else if (tecla === 'b') {
-        chamarSenha('P');
-      }
-    });
-  </script>
+  // POPUP fechar
+  document.getElementById('closePopup').addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'none';
+  });
+</script>
 
 </body>
 </html>
