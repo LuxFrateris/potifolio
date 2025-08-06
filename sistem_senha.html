@@ -115,6 +115,19 @@
 
   document.getElementById('btnPrioritaria').addEventListener('click', () => chamarSenha('P'));
   document.getElementById('btnNormal').addEventListener('click', () => chamarSenha('C'));
+
+// Escuta pressionamento de teclas
+document.addEventListener('keydown', function(event) {
+  const tecla = event.key.toLowerCase(); // pega a tecla em minúsculo
+
+  if (tecla === 'a') {
+    chamarSenha('C'); // tecla A → senha comum
+  } else if (tecla === 'b') {
+    chamarSenha('P'); // tecla B → senha prioritária
+  }
+});
+
+
 </script>
 
 </body>
