@@ -102,6 +102,17 @@
     senhaAtualEl.textContent = senha;
     listaChamadas.unshift(senha); 
     atualizarLista();
+
+    function chamarSenha(tipo) {
+  const senha = gerarSenha(tipo);
+  senhaAtualEl.textContent = senha;
+  listaChamadas.unshift(senha); 
+  atualizarLista();
+  tocarBeep(); // 🔊 toca o beep ao chamar senha
+}
+
+
+
   }
 
   function atualizarLista() {
@@ -126,6 +137,23 @@ document.addEventListener('keydown', function(event) {
     chamarSenha('P'); // tecla B → senha prioritária
   }
 });
+
+
+function tocarBeep() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = ctx.createOscillator();
+  const gainNode = ctx.createGain();
+
+  oscillator.type = 'sine'; // tipo do som (pode ser "square", "triangle" etc)
+  oscillator.frequency.setValueAtTime(600, ctx.currentTime); // frequência do beep
+
+  oscillator.connect(gainNode);
+  gainNode.connect(ctx.destination);
+
+  oscillator.start();
+  gainNode.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.3); // duração do beep
+  oscillator.stop(ctx.currentTime + 0.3);
+}
 
 
 </script>
