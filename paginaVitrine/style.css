@@ -4,7 +4,6 @@
   gap: 30px;
 }
 
-/* Mantém responsivo no mobile */
 @media (max-width: 1024px) {
   .grid-produtos {
     grid-template-columns: repeat(2, 1fr);
