@@ -72,9 +72,11 @@ main {
   text-shadow: 1px 1px 3px #f1c40f;
 }
 
+/* --- MUDANÇA PRINCIPAL AQUI --- */
 .grid-produtos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* Cria 3 colunas de tamanho igual (1fr = 1 fração do espaço disponível) */
+  grid-template-columns: repeat(3, 1fr); 
   gap: 30px;
 }
 
@@ -163,7 +165,14 @@ footer {
   box-shadow: 0 -3px 10px rgba(233, 78, 27, 0.4);
 }
 
-/* Responsividade simples */
+/* Responsividade */
+@media (max-width: 768px) {
+  /* Em telas médias, a grade terá 2 colunas */
+  .grid-produtos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 480px) {
   nav ul {
     flex-direction: column;
@@ -180,5 +189,10 @@ footer {
 
   .card-produto .preco {
     font-size: 1.1rem;
+  }
+
+  /* Em telas pequenas, a grade terá 1 coluna */
+  .grid-produtos {
+    grid-template-columns: 1fr;
   }
 }
