@@ -1,9 +1,10 @@
 .grid-produtos {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas fixas */
   gap: 30px;
 }
 
+/* Mantém responsivo */
 @media (max-width: 1024px) {
   .grid-produtos {
     grid-template-columns: repeat(2, 1fr);
